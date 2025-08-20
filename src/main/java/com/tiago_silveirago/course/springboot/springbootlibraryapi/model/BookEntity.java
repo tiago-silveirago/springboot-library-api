@@ -9,7 +9,8 @@ import java.util.UUID;
 
 @Entity
 @Data
-public class Book {
+@Table(name = "book")
+public class BookEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -29,6 +30,6 @@ public class Book {
 
     @ManyToOne
     @JoinColumn(name = "id_author")
-    private Author author;
+    private AuthorEntity author;
 
 }
