@@ -2,6 +2,9 @@ package com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.
 
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.FieldErrorDTO;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.ResponseErrorDTO;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.DuplicateRegistrationException;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.InvalidFieldException;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.OperationNotPermittedException;
 import org.springframework.http.HttpStatus;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -24,6 +27,41 @@ public class GlobalExceptionHandler {
                                 fieldError.getField(),
                                 fieldError.getDefaultMessage()))
                 .toList();
-        return new ResponseErrorDTO(HttpStatus.UNPROCESSABLE_ENTITY.value(), "Erro de validação",  errorsList);
+
+        return new ResponseErrorDTO(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Erro de validação",
+                errorsList);
+    }
+
+    @ExceptionHandler(DuplicateRegistrationException.class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    public ResponseErrorDTO handleDuplicateRegistrationException(DuplicateRegistrationException e) {
+
+        return ResponseErrorDTO.conflictResponse(e.getMessage());
+    }
+
+    @ExceptionHandler(OperationNotPermittedException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public ResponseErrorDTO handleOperationNotPermittedException(OperationNotPermittedException e) {
+        return ResponseErrorDTO.standardResponse(e.getMessage());
+    }
+
+    @ExceptionHandler(InvalidFieldException.class)
+    @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
+    public ResponseErrorDTO handleInvalidFieldException(InvalidFieldException e) {
+        return new ResponseErrorDTO(
+                HttpStatus.UNPROCESSABLE_ENTITY.value(),
+                "Erro de validação.",
+                List.of(new FieldErrorDTO(e.getField(), e.getMessage())));
+    }
+
+    @ExceptionHandler(RuntimeException.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ResponseErrorDTO unhandledErrors(RuntimeException e) {
+        return new ResponseErrorDTO(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                "Ocorreu um erro inesperado. entre em contato com a administração.",
+                List.of());
     }
 }

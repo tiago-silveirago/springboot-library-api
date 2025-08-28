@@ -11,16 +11,16 @@ public class AuthorFactory {
     private AuthorFactory() {
     }
 
-    public static AuthorEntity fromDto(AuthorRequestDTO request){
-        AuthorEntity author = new AuthorEntity();
-        author.setName(request.name());
-        author.setBirthdate(request.birthdate());
-        author.setNationality(request.nationality());
+    public static AuthorEntity fromDto(AuthorRequestDTO request) {
+        AuthorEntity entity = new AuthorEntity();
+        entity.setName(request.name());
+        entity.setBirthdate(request.birthdate());
+        entity.setNationality(request.nationality());
 
-        return author;
+        return entity;
     }
 
-    public static AuthorResponseDTO fromEntity(AuthorEntity entity){
+    public static AuthorResponseDTO fromEntity(AuthorEntity entity) {
 
         return new AuthorResponseDTO(
                 entity.getId(),
@@ -29,9 +29,10 @@ public class AuthorFactory {
                 entity.getNationality());
     }
 
-    public static List<AuthorResponseDTO> fromEntity(List<AuthorEntity> entities){
+    public static List<AuthorResponseDTO> fromEntity(List<AuthorEntity> entities) {
 
-        return entities.stream()
+        return entities
+                .stream()
                 .map(AuthorFactory::fromEntity)
                 .toList();
     }
