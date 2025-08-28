@@ -1,14 +1,19 @@
 package com.tiago_silveirago.course.springboot.springbootlibraryapi.validators;
 
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.books.BookRequestDTO;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.DuplicateRegistrationException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.InvalidFieldException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.ResourceNotFoundException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.BookEntity;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.repositories.BookRepository;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+import jakarta.validation.Validator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
@@ -18,7 +23,15 @@ public class BookValidator {
     public static final int PRICE_REQUIRED_YEAR = 2020;
 
     private final BookRepository repository;
+    private final Validator validator;
 
+
+    public void validateDto(BookRequestDTO dto) {
+        Set<ConstraintViolation<BookRequestDTO>> violations = validator.validate(dto);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+    }
 
     public BookEntity validateExistence(String id) {
         try {

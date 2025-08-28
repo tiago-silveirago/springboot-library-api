@@ -30,6 +30,7 @@ public class BookService {
 
 
     public UUID create(BookRequestDTO request) {
+        validator.validateDto(request);
         BookEntity entity = fromDto(request);
         validator.validate(entity);
         BookEntity saved = repository.save(entity);
@@ -44,6 +45,7 @@ public class BookService {
     }
 
     public void update(String id, BookRequestDTO request) {
+        validator.validateDto(request);
         BookEntity entity = validator.validateExistence(id);
         AuthorEntity author = authorValidator.validateExistence(request.idAuthor().toString());
         updateEntityFromDto(entity, request, author);

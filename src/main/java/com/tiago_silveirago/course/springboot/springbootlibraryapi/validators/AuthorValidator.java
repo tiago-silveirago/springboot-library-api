@@ -1,15 +1,20 @@
 package com.tiago_silveirago.course.springboot.springbootlibraryapi.validators;
 
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.author.AuthorRequestDTO;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.DuplicateRegistrationException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.OperationNotPermittedException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.ResourceNotFoundException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.AuthorEntity;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.repositories.AuthorRepository;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.repositories.BookRepository;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
+import jakarta.validation.Validator;
 import java.util.Optional;
+import java.util.Set;
 import java.util.UUID;
 
 @Component
@@ -18,6 +23,15 @@ public class AuthorValidator {
 
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final Validator validator;
+
+
+    public void validateDto(AuthorRequestDTO dto) {
+        Set<ConstraintViolation<AuthorRequestDTO>> violations = validator.validate(dto);
+        if (!violations.isEmpty()) {
+            throw new ConstraintViolationException(violations);
+        }
+    }
 
     public AuthorEntity validateExistence(String id) {
         try {

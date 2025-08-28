@@ -15,15 +15,15 @@ public class BookSpecs {
 
     public static Specification<BookEntity> titleLike(String title) {
         return (root,criteriaQuery,criteriaBuilder)
-                -> criteriaBuilder.equal(criteriaBuilder.upper(root.get("title")), "%" + title.toUpperCase() + "%");
+                -> criteriaBuilder.like(criteriaBuilder.upper(root.get("title")), "%" + title.toUpperCase() + "%");
     }
 
     public static Specification<BookEntity> authorNameLike(String name) {
         return (root, criteriaQuery, criteriaBuilder) -> {
-            Join<Object, Object> auhorJoin = root.join("author", JoinType.INNER);
+            Join<Object, Object> authorJoin = root.join("author", JoinType.INNER);
 
             return criteriaBuilder.like(
-                    criteriaBuilder.upper(auhorJoin.get("name")),
+                    criteriaBuilder.upper(authorJoin.get("name")),
                     "%" + name.toUpperCase() + "%");
         };
     }
