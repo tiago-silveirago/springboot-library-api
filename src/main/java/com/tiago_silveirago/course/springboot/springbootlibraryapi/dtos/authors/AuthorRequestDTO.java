@@ -1,4 +1,4 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.author;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.authors;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

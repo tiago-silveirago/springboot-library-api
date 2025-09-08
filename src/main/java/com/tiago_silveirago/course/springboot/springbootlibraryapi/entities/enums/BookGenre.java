@@ -1,4 +1,4 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.model.enums;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.entities.enums;
 
 public enum BookGenre {
     FICTION,

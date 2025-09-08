@@ -1,4 +1,4 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.config;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.configurations;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

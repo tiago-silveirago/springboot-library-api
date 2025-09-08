@@ -1,4 +1,4 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.model;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.entities;
 
 import jakarta.persistence.*;
 import lombok.Data;
@@ -35,6 +35,7 @@ public class AuthorEntity {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    @Column(name = "user_id")
-    private UUID UserId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 }

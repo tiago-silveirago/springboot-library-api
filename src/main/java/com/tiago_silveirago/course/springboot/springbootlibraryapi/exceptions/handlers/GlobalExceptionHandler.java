@@ -1,12 +1,13 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.common;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.handlers;
 
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.FieldErrorDTO;
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.ResponseErrorDTO;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.errors.FieldErrorDTO;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.errors.ResponseErrorDTO;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.DuplicateRegistrationException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.InvalidFieldException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.OperationNotPermittedException;
 import com.tiago_silveirago.course.springboot.springbootlibraryapi.exceptions.ResourceNotFoundException;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -70,9 +71,18 @@ public class GlobalExceptionHandler {
                 List.of(new FieldErrorDTO(e.getField(), e.getMessage())));
     }
 
+    @ExceptionHandler(AccessDeniedException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ResponseErrorDTO handleAccessDeniedException(AccessDeniedException e) {
+        return new ResponseErrorDTO(HttpStatus.FORBIDDEN.value(), "Acesso negado.", List.of());
+
+    }
+
     @ExceptionHandler(RuntimeException.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public ResponseErrorDTO unhandledErrors(RuntimeException e) {
+        System.out.println(e.getMessage());
+
         return new ResponseErrorDTO(
                 HttpStatus.INTERNAL_SERVER_ERROR.value(),
                 "Ocorreu um erro inesperado. entre em contato com a administração.",

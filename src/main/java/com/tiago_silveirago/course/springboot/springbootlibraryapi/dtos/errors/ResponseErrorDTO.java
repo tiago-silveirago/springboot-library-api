@@ -1,4 +1,4 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.errors;
 
 import org.springframework.http.HttpStatus;
 

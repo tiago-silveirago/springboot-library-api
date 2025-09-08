@@ -1,7 +1,7 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.books;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.books;
 
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.author.AuthorResponseDTO;
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.enums.BookGenre;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.authors.AuthorResponseDTO;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.entities.enums.BookGenre;
 
 import java.time.LocalDate;
 import java.util.UUID;

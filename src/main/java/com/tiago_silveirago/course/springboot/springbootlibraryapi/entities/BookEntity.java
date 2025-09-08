@@ -1,6 +1,6 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.model;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.entities;
 
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.enums.BookGenre;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.entities.enums.BookGenre;
 import jakarta.persistence.*;
 import lombok.Data;
 import org.springframework.data.annotation.CreatedDate;
@@ -45,7 +45,8 @@ public class BookEntity {
     @Column(name = "update_date")
     private LocalDateTime updateDate;
 
-    @Column(name = "user_id")
-    private UUID UserId;
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    private UserEntity user;
 
 }

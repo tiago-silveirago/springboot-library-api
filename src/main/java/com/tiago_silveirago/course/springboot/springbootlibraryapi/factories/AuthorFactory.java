@@ -1,27 +1,24 @@
 package com.tiago_silveirago.course.springboot.springbootlibraryapi.factories;
 
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.author.AuthorRequestDTO;
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.author.AuthorResponseDTO;
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.AuthorEntity;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.authors.AuthorRequestDTO;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.authors.AuthorResponseDTO;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.entities.AuthorEntity;
+import lombok.AccessLevel;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class AuthorFactory {
-
-    private AuthorFactory() {
-    }
 
     public static AuthorEntity fromDto(AuthorRequestDTO request) {
         AuthorEntity entity = new AuthorEntity();
-        entity.setName(request.name());
-        entity.setBirthdate(request.birthdate());
-        entity.setNationality(request.nationality());
+        updateEntityFromDto(entity, request);
 
         return entity;
     }
 
     public static AuthorResponseDTO fromEntity(AuthorEntity entity) {
-
         return new AuthorResponseDTO(
                 entity.getId(),
                 entity.getName(),
@@ -30,7 +27,6 @@ public class AuthorFactory {
     }
 
     public static List<AuthorResponseDTO> fromEntity(List<AuthorEntity> entities) {
-
         return entities
                 .stream()
                 .map(AuthorFactory::fromEntity)

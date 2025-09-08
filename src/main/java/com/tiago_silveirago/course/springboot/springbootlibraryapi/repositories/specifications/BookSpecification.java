@@ -1,12 +1,12 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.repositories.specs;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.repositories.specifications;
 
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.BookEntity;
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.enums.BookGenre;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.entities.BookEntity;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.entities.enums.BookGenre;
 import jakarta.persistence.criteria.Join;
 import jakarta.persistence.criteria.JoinType;
 import org.springframework.data.jpa.domain.Specification;
 
-public class BookSpecs {
+public class BookSpecification {
 
     public static Specification<BookEntity> isbnEqual(String isbn) {
         return (root,criteriaQuery,criteriaBuilder)

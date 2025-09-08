@@ -1,6 +1,6 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.books;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.books;
 
-import com.tiago_silveirago.course.springboot.springbootlibraryapi.model.enums.BookGenre;
+import com.tiago_silveirago.course.springboot.springbootlibraryapi.entities.enums.BookGenre;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Past;

@@ -1,4 +1,4 @@
-package com.tiago_silveirago.course.springboot.springbootlibraryapi.controllers.dtos.author;
+package com.tiago_silveirago.course.springboot.springbootlibraryapi.dtos.authors;
 
 import java.time.LocalDate;
 import java.util.UUID;
